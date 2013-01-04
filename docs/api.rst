@@ -20,4 +20,4 @@ API
         :returns: a :mod:`string <python3:string>` containing the requested :term:`WOEID` or :data:`None <python3:None>` if the :term:`WOEID` could not be found.
         :raises urllib.error.URLError: :mod:`urllib.request <python3:urllib.request>` could not open the URL (Python 3).
         :raises urllib2.URLError: :mod:`urllib2 <python2:urllib2>` could not open the URL (Python 2).
-        :raises xml.etree.ElementTree.ParseError: :mod:`xml.etree.ElementTree <python3:xml.etree.ElementTree>` could not open the URL.
+        :raises xml.etree.ElementTree.ParseError: :mod:`xml.etree.ElementTree <python3:xml.etree.ElementTree>` failed to parse the XML document.
