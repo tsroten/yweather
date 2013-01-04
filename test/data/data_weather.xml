@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+		<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+			<channel>
+		
+<title>Yahoo! Weather - Raleigh, NC</title>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Raleigh__NC/*http://weather.yahoo.com/forecast/USNC0558_f.html</link>
+<description>Yahoo! Weather for Raleigh, NC</description>
+<language>en-us</language>
+<lastBuildDate>Mon, 24 Dec 2012 10:50 pm EST</lastBuildDate>
+<ttl>60</ttl>
+<yweather:location city="Raleigh" region="NC"   country="United States"/>
+<yweather:units temperature="F" distance="mi" pressure="in" speed="mph"/>
+<yweather:wind chill="47"   direction="240"   speed="7" />
+<yweather:atmosphere humidity="86"  visibility="10"  pressure="29.93"  rising="1" />
+<yweather:astronomy sunrise="7:22 am"   sunset="5:06 pm"/>
+<image>
+<title>Yahoo! Weather</title>
+<width>142</width>
+<height>18</height>
+<link>http://weather.yahoo.com</link>
+<url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+</image>
+<item>
+<title>Conditions for Raleigh, NC at 10:50 pm EST</title>
+<geo:lat>35.79</geo:lat>
+<geo:long>-78.64</geo:long>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Raleigh__NC/*http://weather.yahoo.com/forecast/USNC0558_f.html</link>
+<pubDate>Mon, 24 Dec 2012 10:50 pm EST</pubDate>
+<yweather:condition  text="Cloudy"  code="26"  temp="50"  date="Mon, 24 Dec 2012 10:50 pm EST" />
+<description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/26.gif"/><br />
+<b>Current Conditions:</b><br />
+Cloudy, 50 F<BR />
+<BR /><b>Forecast:</b><BR />
+Mon - Cloudy. High: 52 Low: 42<br />
+Tue - Mostly Cloudy. High: 58 Low: 42<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Raleigh__NC/*http://weather.yahoo.com/forecast/USNC0558_f.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+<yweather:forecast day="Mon" date="24 Dec 2012" low="42" high="52" text="Cloudy" code="26" />
+<yweather:forecast day="Tue" date="25 Dec 2012" low="42" high="58" text="Mostly Cloudy" code="28" />
+<guid isPermaLink="false">USNC0558_2012_12_25_7_00_EST</guid>
+</item>
+</channel>
+</rss>
+
+<!-- api6.weather.sg3.yahoo.com Tue Dec 25 05:52:43 PST 2012 -->
