@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; yweather 0.1dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="yweather 0.1dev documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">yweather 0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-yweather">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-yweather" title="Permalink to this headline">¶</a></h1>
+<dl class="data">
+<dt id="yweather.WOEID_LOOKUP_URL">
+<tt class="descclassname">yweather.</tt><tt class="descname">WOEID_LOOKUP_URL</tt><a class="headerlink" href="#yweather.WOEID_LOOKUP_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL used to fetch a location&#8217;s corresponding <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="yweather.Client">
+<em class="property">class </em><tt class="descclassname">yweather.</tt><tt class="descname">Client</tt><a class="reference internal" href="_modules/yweather.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yweather.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface with the Yahoo! Weather RSS feed. Provides methods to search for location data and fetch weather data.</p>
+<dl class="method">
+<dt id="yweather.Client.fetch_woeid">
+<tt class="descname">fetch_woeid</tt><big>(</big><em>location</em><big>)</big><a class="reference internal" href="_modules/yweather.html#Client.fetch_woeid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yweather.Client.fetch_woeid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a location&#8217;s corresponding <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>location</strong> (<a class="reference external" href="http://docs.python.org/3.3/library/string.html#string" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">string</span></tt></a>) &#8211; a location (e.g. 23454 or Berlin, Germany).</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a <a class="reference external" href="http://docs.python.org/3.3/library/string.html#string" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">string</span></tt></a> containing the requested <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a> or <a class="reference external" href="http://docs.python.org/3.3/library/constants.html#None" title="(in Python v3.3)"><tt class="xref py py-data docutils literal"><span class="pre">None</span></tt></a> if the <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a> could not be found.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://docs.python.org/3.3/library/urllib.error.html#urllib.error.URLError" title="(in Python v3.3)"><strong>urllib.error.URLError</strong></a> &#8211; <a class="reference external" href="http://docs.python.org/3.3/library/urllib.request.html#urllib.request" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">urllib.request</span></tt></a> could not open the URL (Python 3).</li>
+<li><a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2.URLError" title="(in Python v2.7)"><strong>urllib2.URLError</strong></a> &#8211; <a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">urllib2</span></tt></a> could not open the URL (Python 2).</li>
+<li><strong>xml.etree.ElementTree.ParseError</strong> &#8211; <a class="reference external" href="http://docs.python.org/3.3/library/xml.etree.elementtree.html#xml.etree.ElementTree" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></tt></a> could not open the URL.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">yweather 0.1dev documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Thomas Roten.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
