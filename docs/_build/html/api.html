@@ -54,10 +54,331 @@
 <dd><p>The URL used to fetch a location&#8217;s corresponding <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a>.</p>
 </dd></dl>
 
+<dl class="data">
+<dt id="yweather.WEATHER_URL">
+<tt class="descclassname">yweather.</tt><tt class="descname">WEATHER_URL</tt><a class="headerlink" href="#yweather.WEATHER_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL used to fetch a <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a>&#8216;s weather.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="yweather.WEATHER_NS">
+<tt class="descclassname">yweather.</tt><tt class="descname">WEATHER_NS</tt><a class="headerlink" href="#yweather.WEATHER_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The XML namespace used in the weather RSS feed.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="yweather.GEO_NS">
+<tt class="descclassname">yweather.</tt><tt class="descname">GEO_NS</tt><a class="headerlink" href="#yweather.GEO_NS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The XML namespace used for the lat/long coordinates in the RSS feed.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="yweather.CONDITION_IMAGE_URL">
+<tt class="descclassname">yweather.</tt><tt class="descname">CONDITION_IMAGE_URL</tt><a class="headerlink" href="#yweather.CONDITION_IMAGE_URL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URL of an image depicting the current conditions.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="yweather.UNITS">
+<tt class="descclassname">yweather.</tt><tt class="descname">UNITS</tt><a class="headerlink" href="#yweather.UNITS" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that maps data names to units.</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="yweather.Client">
 <em class="property">class </em><tt class="descclassname">yweather.</tt><tt class="descname">Client</tt><a class="reference internal" href="_modules/yweather.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yweather.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface with the Yahoo! Weather RSS feed. Provides methods to search for location data and fetch weather data.</p>
+<dl class="method">
+<dt id="yweather.Client.fetch_weather">
+<tt class="descname">fetch_weather</tt><big>(</big><em>woeid</em><span class="optional">[</span>, <em>metric=False</em><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/yweather.html#Client.fetch_weather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yweather.Client.fetch_weather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a location&#8217;s weather.</p>
+<p>The returned data is a <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> with the requested weather data. It loosely follows the <a class="reference external" href="http://developer.yahoo.com/weather/#response">Yahoo! Weather RSS feed response structure</a>, but has some noticeable differences. The following table outlines the data structure.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="5%" />
+<col width="7%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Keys</th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>title</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The title of the feed, which includes the location city. For example &#8220;Yahoo! Weather - Sunnyvale, CA&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>link</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The URL of the forecast for  this location.</td>
+</tr>
+<tr class="row-even"><td>language</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The language of the weather forecast, for example, en-us for US English.</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The overall description of the feed including the location, for example &#8220;Yahoo! Weather for Sunnyvale, CA&#8221;.</td>
+</tr>
+<tr class="row-even"><td>lastBuildDate</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The last time the feed was updated. For example, Fri, 04 Jan 2013 6:56 am PST.</td>
+</tr>
+<tr class="row-odd"><td>ttl</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Time to Live; how long in minutes this feed should be cached.</td>
+</tr>
+<tr class="row-even"><td>logo</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>The URL for the Yahoo! Weather logo associated with this feed.</td>
+</tr>
+<tr class="row-odd"><td>guid</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Unique identifier for the forecast, made up of the location ID, the date, and the time.</td>
+</tr>
+<tr class="row-even"><td>location</td>
+<td>city</td>
+<td>&nbsp;</td>
+<td>city name</td>
+</tr>
+<tr class="row-odd"><td>location</td>
+<td>region</td>
+<td>&nbsp;</td>
+<td>state, territory, or region, if given.</td>
+</tr>
+<tr class="row-even"><td>location</td>
+<td>country</td>
+<td>&nbsp;</td>
+<td>two-character country code</td>
+</tr>
+<tr class="row-odd"><td>geo</td>
+<td>lat</td>
+<td>&nbsp;</td>
+<td>The latitude of the location.</td>
+</tr>
+<tr class="row-even"><td>geo</td>
+<td>long</td>
+<td>&nbsp;</td>
+<td>The longitude of the location.</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>wind</td>
+<td>chill</td>
+<td>°F or °C</td>
+</tr>
+<tr class="row-even"><td>units</td>
+<td>wind</td>
+<td>direction</td>
+<td>°</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>wind</td>
+<td>speed</td>
+<td>mph or km/h</td>
+</tr>
+<tr class="row-even"><td>units</td>
+<td>atmosphere</td>
+<td>humidity</td>
+<td>%</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>atmosphere</td>
+<td>visbility</td>
+<td>mi or km</td>
+</tr>
+<tr class="row-even"><td>units</td>
+<td>atmosphere</td>
+<td>pressure</td>
+<td>psi or hPa</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>condition</td>
+<td>temp</td>
+<td>°F or °C</td>
+</tr>
+<tr class="row-even"><td>units</td>
+<td>forecast</td>
+<td>low</td>
+<td>°F or °C</td>
+</tr>
+<tr class="row-odd"><td>units</td>
+<td>forecast</td>
+<td>high</td>
+<td>°F or °C</td>
+</tr>
+<tr class="row-even"><td>wind</td>
+<td>chill</td>
+<td>&nbsp;</td>
+<td>wind chill in degrees</td>
+</tr>
+<tr class="row-odd"><td>wind</td>
+<td>direction</td>
+<td>&nbsp;</td>
+<td>wind direction, in degrees</td>
+</tr>
+<tr class="row-even"><td>wind</td>
+<td>compass</td>
+<td>&nbsp;</td>
+<td>wind direction, according to a compass. For example, NNW, SE, or W.</td>
+</tr>
+<tr class="row-odd"><td>wind</td>
+<td>speed</td>
+<td>&nbsp;</td>
+<td>wind speed in mph or km/h</td>
+</tr>
+<tr class="row-even"><td>atmosphere</td>
+<td>humidity</td>
+<td>&nbsp;</td>
+<td>humidity, in percent</td>
+</tr>
+<tr class="row-odd"><td>atmosphere</td>
+<td>visibility</td>
+<td>&nbsp;</td>
+<td>visibility, in mi or km.</td>
+</tr>
+<tr class="row-even"><td>atmosphere</td>
+<td>pressure</td>
+<td>&nbsp;</td>
+<td>barometric pressure in psi or hPa.</td>
+</tr>
+<tr class="row-odd"><td>atmosphere</td>
+<td>rising</td>
+<td>&nbsp;</td>
+<td>state of the barometric pressure as a number: 0 (steady), 1 (rising), or 2 (falling).</td>
+</tr>
+<tr class="row-even"><td>atmosphere</td>
+<td>state</td>
+<td>&nbsp;</td>
+<td>state of the barometric pressure as text: steady, rising, or falling.</td>
+</tr>
+<tr class="row-odd"><td>astronomy</td>
+<td>sunrise</td>
+<td>&nbsp;</td>
+<td>today&#8217;s sunrise time. The time is in a local time format of &#8220;h:mm am/pm&#8221;, for example &#8220;7:02 am&#8221;</td>
+</tr>
+<tr class="row-even"><td>astronomy</td>
+<td>sunset</td>
+<td>&nbsp;</td>
+<td>today&#8217;s sunset time. The time is in a local time format of &#8220;h:mm am/pm&#8221;, for example &#8220;4:51 pm&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>condition</td>
+<td>text</td>
+<td>&nbsp;</td>
+<td>a textual description of conditions, for example, &#8220;Partly Cloudy&#8221;</td>
+</tr>
+<tr class="row-even"><td>condition</td>
+<td>code</td>
+<td>&nbsp;</td>
+<td>the condition code for this forecast. Yahoo! Weather&#8217;s developer network lists the <a class="reference external" href="http://developer.yahoo.com/weather/#codes">possible values</a>.</td>
+</tr>
+<tr class="row-odd"><td>condition</td>
+<td>image</td>
+<td>&nbsp;</td>
+<td>the URL of an image that depicts the current conditions (clouds, sun, rain, etc.).</td>
+</tr>
+<tr class="row-even"><td>condition</td>
+<td>temp</td>
+<td>&nbsp;</td>
+<td>the current temperature in °F or °C</td>
+</tr>
+<tr class="row-odd"><td>condition</td>
+<td>date</td>
+<td>&nbsp;</td>
+<td>the current date and time for which this forecast applies. For example, Fri, 04 Jan 2013 6:56 am PST.</td>
+</tr>
+<tr class="row-even"><td>forecast</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>contains a <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#list" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></a>, where each item is a <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> that contains the weather forecast for a specific day.</td>
+</tr>
+<tr class="row-odd"><td>&#8211;</td>
+<td>day</td>
+<td>&nbsp;</td>
+<td>day of the week to which this forecast applies. Possible values are Mon Tue Wed Thu Fri Sat Sun</td>
+</tr>
+<tr class="row-even"><td>&#8211;</td>
+<td>date</td>
+<td>&nbsp;</td>
+<td>the date to which this forecast applies. The date is in &#8220;dd Mmm yyyy&#8221; format, for example &#8220;3 Nov 2005&#8221;</td>
+</tr>
+<tr class="row-odd"><td>&#8211;</td>
+<td>low</td>
+<td>&nbsp;</td>
+<td>the forecasted low temperature for this day in °F or °C</td>
+</tr>
+<tr class="row-even"><td>&#8211;</td>
+<td>high</td>
+<td>&nbsp;</td>
+<td>the forecasted high temperature for this day in °F or °C</td>
+</tr>
+<tr class="row-odd"><td>&#8211;</td>
+<td>text</td>
+<td>&nbsp;</td>
+<td>a textual description of conditions, for example, &#8220;Partly Cloudy&#8221;</td>
+</tr>
+<tr class="row-even"><td>&#8211;</td>
+<td>code</td>
+<td>&nbsp;</td>
+<td>the condition code for this forecast. Yahoo! Weather&#8217;s developer network lists the <a class="reference external" href="http://developer.yahoo.com/weather/#codes">possible values</a>.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>The differences between this data structure and Yahoo! Weather&#8217;s are:</dt>
+<dd><ul class="first last simple">
+<li><em>units</em> breaks down the data units further and uses more helpful key names.</li>
+<li><em>logo</em> represents the RSS feed&#8217;s <tt class="docutils literal"><span class="pre">&lt;image&gt;</span></tt> tag.</li>
+<li><em>guid</em> was moved to the top level.</li>
+<li><em>condition</em> has the <em>image</em> key, which provides easy access to a URL of an image depicting the current sky conditions.</li>
+<li><em>atmosphere</em> has the <em>state</em> key, which gives a textual description of the barometric pressure state.</li>
+<li><em>geo</em> is now a <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> with <em>lat</em> and <em>long</em> keys.</li>
+<li><em>wind</em> includes the <em>compass</em> key, which provides wind direction according to a compass (e.g. NNW, SE, or W).</li>
+</ul>
+</dd>
+</dl>
+<p>Example usage of the returned <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">result</span><span class="p">[</span><span class="s">&quot;wind&quot;</span><span class="p">][</span><span class="s">&quot;compass&quot;</span><span class="p">]</span>
+<span class="go">NNW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">result</span><span class="p">[</span><span class="s">&quot;atmosphere&quot;</span><span class="p">][</span><span class="s">&quot;pressure&quot;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s">&quot;units&quot;</span><span class="p">][</span><span class="s">&quot;atmosphere&quot;</span><span class="p">][</span><span class="s">&quot;pressure&quot;</span><span class="p">]</span>
+<span class="go">29.95 psi</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>woeid</strong> (<a class="reference external" href="http://docs.python.org/3.3/library/string.html#string" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">string</span></tt></a>) &#8211; the location&#8217;s <a class="reference internal" href="glossary.html#term-woeid"><em class="xref std std-term">WOEID</em></a>.</li>
+<li><strong>metric</strong> (<a class="reference external" href="http://docs.python.org/3.3/library/functions.html#bool" title="(in Python v3.3)"><tt class="xref py py-func docutils literal"><span class="pre">bool</span></tt></a>) &#8211; return metric data; defaults to <a class="reference external" href="http://docs.python.org/3.3/library/constants.html#False" title="(in Python v3.3)"><tt class="xref py py-data docutils literal"><span class="pre">False</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a <a class="reference external" href="http://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a> containing the location&#8217;s weather data or <a class="reference external" href="http://docs.python.org/3.3/library/constants.html#None" title="(in Python v3.3)"><tt class="xref py py-data docutils literal"><span class="pre">None</span></tt></a> if the weather data couldn&#8217;t be fetched.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://docs.python.org/3.3/library/urllib.error.html#urllib.error.URLError" title="(in Python v3.3)"><strong>urllib.error.URLError</strong></a> &#8211; <a class="reference external" href="http://docs.python.org/3.3/library/urllib.request.html#urllib.request" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">urllib.request</span></tt></a> could not open the URL (Python 3).</li>
+<li><a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2.URLError" title="(in Python v2.7)"><strong>urllib2.URLError</strong></a> &#8211; <a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">urllib2</span></tt></a> could not open the URL (Python 2).</li>
+<li><strong>xml.etree.ElementTree.ParseError</strong> &#8211; <a class="reference external" href="http://docs.python.org/3.3/library/xml.etree.elementtree.html#xml.etree.ElementTree" title="(in Python v3.3)"><tt class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></tt></a> failed to parse the XML document.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="yweather.Client.fetch_woeid">
 <tt class="descname">fetch_woeid</tt><big>(</big><em>location</em><big>)</big><a class="reference internal" href="_modules/yweather.html#Client.fetch_woeid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yweather.Client.fetch_woeid" title="Permalink to this definition">¶</a></dt>
