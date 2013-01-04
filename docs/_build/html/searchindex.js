@@ -1,0 +1,1 @@
+Search.setIndex({objects:{},terms:{page:0,content:0,yweather:0,interfac:0,rss:0,modul:0,welcom:0,weather:0,feed:0,provid:0,yahoo:0,indic:0,search:0,index:0,document:0,python:0,tabl:0},titles:["Welcome to yweather&#8217;s documentation!"],filenames:["index"],objtypes:{},objnames:{}})
