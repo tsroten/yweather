@@ -170,6 +170,9 @@ class Client(object):
 
         rss = self._fetch_xml(url)
 
+        if rss.find("channel/item/title").text == "City not found":
+            return None
+
         # xml_items details which tags should be read and what their
         # destination dict key should be. These tags don't appear
         # multiple times.
@@ -213,7 +216,7 @@ class Client(object):
                     weather[meta[1]] = None
             else:
                 weather[meta[1]] = None
-        
+
         try:
             image_url = CONDITION_IMAGE_URL.format(weather["condition"]["code"])
             weather["condition"]["image"] =  image_url
