@@ -181,7 +181,14 @@
             <span class="n">link</span> <span class="o">=</span> <span class="n">rss</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;channel/link&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span>
-        <span class="n">lid</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;/forecast/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c"># use regex or string.split</span>
+        <span class="c"># regex assumes the format XXXXNNNN for the LID.</span>
+        <span class="c"># string.split works more general of the context.</span>
+
+        <span class="n">lid</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;[A-Za-z]{4}[0-9]{4}&quot;</span><span class="p">,</span> <span class="n">link</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+        <span class="c"># lid = link.split(&quot;/forecast/&quot;)[1].split(&quot;_&quot;)[0]</span>
+
         <span class="k">return</span> <span class="n">lid</span>
 </div>
 <div class="viewcode-block" id="Client.fetch_weather"><a class="viewcode-back" href="../api.html#yweather.Client.fetch_weather">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
@@ -220,6 +227,9 @@
             <span class="n">url</span> <span class="o">=</span> <span class="n">WEATHER_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
 
         <span class="n">rss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_xml</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rss</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;channel/item/title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s">&quot;City not found&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
 
         <span class="c"># xml_items details which tags should be read and what their</span>
         <span class="c"># destination dict key should be. These tags don&#39;t appear</span>
@@ -264,7 +274,7 @@
                     <span class="n">weather</span><span class="p">[</span><span class="n">meta</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">weather</span><span class="p">[</span><span class="n">meta</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">None</span>
-        
+
         <span class="k">try</span><span class="p">:</span>
             <span class="n">image_url</span> <span class="o">=</span> <span class="n">CONDITION_IMAGE_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s">&quot;condition&quot;</span><span class="p">][</span><span class="s">&quot;code&quot;</span><span class="p">])</span>
             <span class="n">weather</span><span class="p">[</span><span class="s">&quot;condition&quot;</span><span class="p">][</span><span class="s">&quot;image&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">image_url</span>

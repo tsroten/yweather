@@ -9,7 +9,7 @@ setup(
     author = "Thomas Roten",
     author_email = "thomas@roten.us",
     url = "https://github.com/tsroten/yweather",
-    description = ("a Python module that provides an interface to the Yahoo!"
+    description = ("a Python module that provides an interface to the Yahoo! "
                    "Weather RSS feed."),
     long_description = long_description,
     classifiers = [
