@@ -130,7 +130,14 @@ class Client(object):
             link = rss.find("channel/link").text
         except AttributeError:
             return None
-        lid = link.split("/forecast/")[1].split("_")[0]
+
+        # use regex or string.split
+        # regex assumes the format XXXXNNNN for the LID.
+        # string.split works more general of the context.
+
+        lid = re.search("[A-Za-z]{4}[0-9]{4}", link).group()
+        # lid = link.split("/forecast/")[1].split("_")[0]
+
         return lid
 
     def fetch_weather(self, id, metric=False):
