@@ -80,6 +80,7 @@
 <span class="sd">    WOEID_LOOKUP_URL: the URL used to fetch a location’s corresponding WOEID.</span>
 <span class="sd">    WEATHER_URL: the URL used to fetch a WOEID&#39;s weather.</span>
 <span class="sd">    LID_LOOKUP_URL: the URL used to fetch a location&#39;s corresponding LID.</span>
+<span class="sd">    LID_WEATHER_URL: the URL used to fetch a LID&#39;s weather.</span>
 <span class="sd">    WEATHER_NS: the XML namespace used in the weather RSS feed.</span>
 <span class="sd">    GEO_NS: the XML namespace used for the lat/long coordinates in the RSS feed.</span>
 <span class="sd">    CONDITION_IMAGE_URL: the URL of an image depicting the current conditions.</span>
@@ -94,6 +95,7 @@
     <span class="kn">from</span> <span class="nn">urllib2</span> <span class="kn">import</span> <span class="n">urlopen</span>
     <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">quote</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span>
 
 
@@ -102,6 +104,7 @@
                     <span class="s">&quot;where%20text=&#39;{0}&#39;&quot;</span><span class="p">)</span>
 <span class="n">WEATHER_URL</span> <span class="o">=</span> <span class="s">&quot;http://weather.yahooapis.com/forecastrss?w={0}&amp;u={1}&quot;</span>
 <span class="n">LID_LOOKUP_URL</span> <span class="o">=</span> <span class="n">WEATHER_URL</span>
+<span class="n">LID_WEATHER_URL</span> <span class="o">=</span> <span class="s">&quot;http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml&quot;</span>
 <span class="n">WEATHER_NS</span> <span class="o">=</span> <span class="s">&quot;http://xml.weather.yahoo.com/ns/rss/1.0&quot;</span>
 <span class="n">GEO_NS</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/2003/01/geo/wgs84_pos#&quot;</span>
 <span class="n">CONDITION_IMAGE_URL</span> <span class="o">=</span> <span class="s">&quot;http://l.yimg.com/a/i/us/we/52/{0}.gif&quot;</span>
@@ -155,9 +158,6 @@
 <div class="viewcode-block" id="Client.fetch_lid"><a class="viewcode-back" href="../api.html#yweather.Client.fetch_lid">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_lid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">woeid</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fetch a location&#39;s corresponding LID.</span>
 
-<span class="sd">        It is used on Yahoo! Weather to fetch weather with a 5-day</span>
-<span class="sd">        forecast using an undocumented API.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            woeid: (string) the location&#39;s WOEID.</span>
 <span class="sd">        </span>
@@ -184,11 +184,16 @@
         <span class="n">lid</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;/forecast/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">lid</span>
 </div>
-<div class="viewcode-block" id="Client.fetch_weather"><a class="viewcode-back" href="../api.html#yweather.Client.fetch_weather">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">woeid</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Client.fetch_weather"><a class="viewcode-back" href="../api.html#yweather.Client.fetch_weather">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fetch a location&#39;s weather.</span>
 
+<span class="sd">        *id* can be either a WOEID or LID. The weather data returned for each is</span>
+<span class="sd">        identical except that the WOEID returns a 2-day forecast and the LID</span>
+<span class="sd">        returns a 5-day forecast. The LID uses an undocumented API, so use it</span>
+<span class="sd">        at your own risk.</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            woeid: (string) the location&#39;s WOEID.</span>
+<span class="sd">            id: (string) the location&#39;s WOEID or LID.</span>
 <span class="sd">            metric: (bool) return metric data; defaults to False.</span>
 
 <span class="sd">        Returns:</span>
@@ -202,8 +207,19 @@
 <span class="sd">                the XML document.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;c&quot;</span> <span class="k">if</span> <span class="n">metric</span> <span class="k">else</span> <span class="s">&quot;f&quot;</span>
-        <span class="n">rss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_xml</span><span class="p">(</span><span class="n">WEATHER_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">woeid</span><span class="p">,</span> <span class="n">units</span><span class="p">))</span>
+
+        <span class="c"># WOEID is a 32-bit integer, while LID is XXXXNNNN, where X is a letter</span>
+        <span class="c"># and N is a number. So, we pick the URL to use based on whether or not</span>
+        <span class="c"># the *id* begins with a letter.</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&quot;^[A-Za-z]&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">LID_WEATHER_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">WEATHER_URL</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+
+        <span class="n">rss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_xml</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
         <span class="c"># xml_items details which tags should be read and what their</span>
         <span class="c"># destination dict key should be. These tags don&#39;t appear</span>

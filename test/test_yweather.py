@@ -39,6 +39,24 @@ class testFetchWeather(unittest.TestCase):
         self.assertEqual(weather["wind"]["direction"], "240")
         self.assertEqual(weather["forecast"][0]["high"], "52")
         self.assertEqual(weather["geo"]["lat"], "35.79")
+
+class testFetchWeatherLidMode(unittest.TestCase):
+
+    def return_root(self, extra=None):
+        return self.root
+
+    def setUp(self):
+        self.client = yweather.Client()
+        data_file_name = os.path.join(os.path.dirname(__file__),
+                                      "data", "data_5day.xml")
+        with open(data_file_name) as f:
+            self.root = xml.etree.ElementTree.parse(f).getroot()
+        self.client._fetch_xml = self.return_root
+
+    def test_fetch_weather_lid_mode(self):
+        weather = self.client.fetch_weather("USNC0558")
+        self.assertEqual(weather["ttl"], "60")
+        self.assertEqual(len(weather["forecast"]), 5)
         
 class testFetchLid(unittest.TestCase):
 

@@ -15,6 +15,10 @@ API
 
     The URL used to fetch a location's corresponding :term:`LID`.
 
+.. data:: LID_WEATHER_URL
+
+    The URL used to fetch a :term:`LID`'s weather.
+
 .. data:: WEATHER_NS
 
     The XML namespace used in the weather RSS feed.
@@ -37,7 +41,7 @@ API
 
     .. method:: fetch_lid(woeid)
 
-        Fetch a location's corresponding :term:`LID`. It is used on Yahoo! Weather to fetch weather data with a 5-day forecast using an undocumented API.
+        Fetch a location's corresponding :term:`LID`.
 
         :param woeid: the location's :term:`WOEID`.
         :type woeid: :mod:`string <python3:string>`
@@ -46,9 +50,11 @@ API
         :raises urllib2.URLError: :mod:`urllib2 <python2:urllib2>` could not open the URL (Python 2).
         :raises xml.etree.ElementTree.ParseError: :mod:`xml.etree.ElementTree <python3:xml.etree.ElementTree>` failed to parse the XML document.
 
-    .. method:: fetch_weather(woeid[, metric=False])
+    .. method:: fetch_weather(id[, metric=False])
 
         Fetch a location's weather.
+
+        *id* can be either a :term:`WOEID` or :term:`LID`. The weather data returned for each is identical except that the :term:`WOEID` returns a 2-day forecast and the :term:`LID` returns a 5-day forecast. The :term:`LID` uses an undocumented API, so use it at your own risk.
 
         The returned data is a :class:`dict <python3:dict>` with the requested weather data. It loosely follows the `Yahoo! Weather RSS feed response structure <http://developer.yahoo.com/weather/#response>`_, but has some noticeable differences. The following table outlines the data structure.
 
@@ -120,8 +126,8 @@ API
             >>> print result["atmosphere"]["pressure"], result["units"]["atmosphere"]["pressure"]
             29.95 psi
 
-        :param woeid: the location's :term:`WOEID`.
-        :type woeid: :mod:`string <python3:string>`
+        :param id: the location's :term:`WOEID` or :term:`LID`.
+        :type id: :mod:`string <python3:string>`
         :param metric: return metric data; defaults to :data:`False <python3:False>`.
         :type metric: :func:`bool <python3:bool>`
         :returns: a :class:`dict <python3:dict>` containing the location's weather data or :data:`None <python3:None>` if the weather data couldn't be fetched.

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+		<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+			<channel>
+		
+<title>Yahoo! Weather - Kailua, HI</title>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Kailua__HI/*http://weather.yahoo.com/forecast/USHI0032_f.html</link>
+<description>Yahoo! Weather for Kailua, HI</description>
+<language>en-us</language>
+<lastBuildDate>Mon, 24 Dec 2012 5:58 pm HST</lastBuildDate>
+<ttl>60</ttl>
+<yweather:location city="Kailua" region="HI"   country="US"/>
+<yweather:units temperature="F" distance="mi" pressure="in" speed="mph"/>
+<yweather:wind chill="75"   direction="0"   speed="0" />
+<yweather:atmosphere humidity="83"  visibility="10"  pressure="29.98"  rising="0" />
+<yweather:astronomy sunrise="7:07 am"   sunset="5:56 pm"/>
+<image>
+<title>Yahoo! Weather</title>
+<width>142</width>
+<height>18</height>
+<link>http://weather.yahoo.com</link>
+<url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+</image>
+<item>
+<title>Conditions for Kailua, HI at 5:58 pm HST</title>
+<geo:lat>21.4</geo:lat>
+<geo:long>-157.74</geo:long>
+<link>http://us.rd.yahoo.com/dailynews/rss/weather/Kailua__HI/*http://weather.yahoo.com/forecast/USHI0032_f.html</link>
+<pubDate>Mon, 24 Dec 2012 5:58 pm HST</pubDate>
+<yweather:condition  text="Fair"  code="33"  temp="75"  date="Mon, 24 Dec 2012 5:58 pm HST" />
+<description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/33.gif"/><br />
+<b>Current Conditions:</b><br />
+Fair, 75 F<BR />
+<BR /><b>Forecast:</b><BR />
+Mon - Showers. High: 79 Low: 72<br />
+Tue - Showers. High: 79 Low: 72<br />
+Wed - Showers. High: 79 Low: 72<br />
+Thu - Partly Cloudy. High: 80 Low: 72<br />
+Fri - Mostly Sunny. High: 80 Low: 72<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Kailua__HI/*http://weather.yahoo.com/forecast/USHI0032_f.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+<yweather:forecast day="Mon" date="24 Dec 2012" low="72" high="79" text="Showers" code="11" />
+<yweather:forecast day="Tue" date="25 Dec 2012" low="72" high="79" text="Showers" code="11" />
+<yweather:forecast day="Wed" date="26 Dec 2012" low="72" high="79" text="Showers" code="11" />
+<yweather:forecast day="Thu" date="27 Dec 2012" low="72" high="80" text="Partly Cloudy" code="30" />
+<yweather:forecast day="Fri" date="28 Dec 2012" low="72" high="80" text="Mostly Sunny" code="34" />
+<guid isPermaLink="false">USHI0032_2012_12_28_7_00_HST</guid>
+</item>
+</channel>
+</rss>
+
+<!-- api4.weather.sg3.yahoo.com Tue Dec 25 05:52:55 PST 2012 -->
