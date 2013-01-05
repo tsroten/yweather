@@ -11,6 +11,10 @@ API
 
     The URL used to fetch a :term:`WOEID`'s weather.
 
+.. data:: LID_LOOKUP_URL
+
+    The URL used to fetch a location's corresponding :term:`LID`.
+
 .. data:: WEATHER_NS
 
     The XML namespace used in the weather RSS feed.
@@ -30,6 +34,17 @@ API
 .. class:: Client()
 
     Interface with the Yahoo! Weather RSS feed. Provides methods to search for location data and fetch weather data.
+
+    .. method:: fetch_lid(woeid)
+
+        Fetch a location's corresponding :term:`LID`. It is used on Yahoo! Weather to fetch weather data with a 5-day forecast using an undocumented API.
+
+        :param woeid: the location's :term:`WOEID`.
+        :type woeid: :mod:`string <python3:string>`
+        :returns: a :mod:`string <python3:string>` containing the requested :term:`LID` or :data:`None <python3:None>` if the :term:`LID` could not be found.
+        :raises urllib.error.URLError: :mod:`urllib.request <python3:urllib.request>` could not open the URL (Python 3).
+        :raises urllib2.URLError: :mod:`urllib2 <python2:urllib2>` could not open the URL (Python 2).
+        :raises xml.etree.ElementTree.ParseError: :mod:`xml.etree.ElementTree <python3:xml.etree.ElementTree>` failed to parse the XML document.
 
     .. method:: fetch_weather(woeid[, metric=False])
 

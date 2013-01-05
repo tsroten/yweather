@@ -4,14 +4,21 @@ import xml.etree.ElementTree
 
 import yweather
 
-class testYWeather(unittest.TestCase):
+class testFetchWoeid(unittest.TestCase):
+
+    def return_root(self, extra=None):
+        return self.root
 
     def setUp(self):
         self.client = yweather.Client()
+        data_file_name = os.path.join(os.path.dirname(__file__),
+                                      "data", "data_woeid.xml")
+        with open(data_file_name) as f:
+            self.root = xml.etree.ElementTree.parse(f).getroot()
+        self.client._fetch_xml = self.return_root
 
     def test_fetch_woeid(self):
-        self.assertEqual(self.client.fetch_woeid("23454"), "12767391")
-        self.assertEqual(self.client.fetch_woeid("kajlsfj"), None)
+        self.assertEqual(self.client.fetch_woeid("Raleigh, NC"), "2478307")
 
 class testFetchWeather(unittest.TestCase):
 
@@ -33,3 +40,18 @@ class testFetchWeather(unittest.TestCase):
         self.assertEqual(weather["forecast"][0]["high"], "52")
         self.assertEqual(weather["geo"]["lat"], "35.79")
         
+class testFetchLid(unittest.TestCase):
+
+    def return_root(self, extra=None):
+        return self.root
+
+    def setUp(self):
+        self.client = yweather.Client()
+        data_file_name = os.path.join(os.path.dirname(__file__),
+                                      "data", "data_weather.xml")
+        with open(data_file_name) as f:
+            self.root = xml.etree.ElementTree.parse(f).getroot()
+        self.client._fetch_xml = self.return_root
+
+    def test_fetch_lid(self):
+        self.assertEqual(self.client.fetch_lid("2478307"), "USNC0558")

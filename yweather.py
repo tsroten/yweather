@@ -28,6 +28,7 @@ Classes:
 Constants:
     WOEID_LOOKUP_URL: the URL used to fetch a location’s corresponding WOEID.
     WEATHER_URL: the URL used to fetch a WOEID's weather.
+    LID_LOOKUP_URL: the URL used to fetch a location's corresponding LID.
     WEATHER_NS: the XML namespace used in the weather RSS feed.
     GEO_NS: the XML namespace used for the lat/long coordinates in the RSS feed.
     CONDITION_IMAGE_URL: the URL of an image depicting the current conditions.
@@ -49,6 +50,7 @@ WOEID_LOOKUP_URL = ("http://locdrop.query.yahoo.com/v1/public/yql?"
                     "q=select%20woeid%20from%20locdrop.placefinder%20"
                     "where%20text='{0}'")
 WEATHER_URL = "http://weather.yahooapis.com/forecastrss?w={0}&u={1}"
+LID_LOOKUP_URL = WEATHER_URL
 WEATHER_NS = "http://xml.weather.yahoo.com/ns/rss/1.0"
 GEO_NS = "http://www.w3.org/2003/01/geo/wgs84_pos#"
 CONDITION_IMAGE_URL = "http://l.yimg.com/a/i/us/we/52/{0}.gif"
@@ -93,10 +95,43 @@ class Client(object):
     Provides methods to search for location data and fetch weather data.
 
     Methods:
+        fetch_lid: fetch a location's LID.
         fetch_woeid: fetch a location's WOEID.
         fetch_weather: fetch a location's weather.
 
     """
+
+    def fetch_lid(self, woeid):
+        """Fetch a location's corresponding LID.
+
+        It is used on Yahoo! Weather to fetch weather with a 5-day
+        forecast using an undocumented API.
+
+        Args:
+            woeid: (string) the location's WOEID.
+        
+        Returns:
+            a string containing the requested LID or None if the LID could
+            not be found.
+
+        Raises:
+            urllib.error.URLError: urllib.request could not open the URL (Python 3).
+            urllib2.URLError: urllib2 could not open the URL (Python 2).
+            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to parse
+                the XML document.
+
+        """
+        rss = self._fetch_xml(LID_LOOKUP_URL.format(woeid, "f"))
+
+        # We are pulling the LID from the permalink tag in the XML file
+        # returned by Yahoo.
+
+        try:
+            link = rss.find("channel/link").text
+        except AttributeError:
+            return None
+        lid = link.split("/forecast/")[1].split("_")[0]
+        return lid
 
     def fetch_weather(self, woeid, metric=False):
         """Fetch a location's weather.
