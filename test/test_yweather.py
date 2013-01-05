@@ -1,8 +1,27 @@
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
 import os
 import unittest
 import xml.etree.ElementTree
 
 import yweather
+
+class testFetchXml(unittest.TestCase):
+
+    def setUp(self):
+        self.client = yweather.Client()
+        data_file_name = os.path.join(os.path.dirname(__file__),
+                                      "data", "data_woeid.xml")
+        with open(data_file_name) as f:
+            root = xml.etree.ElementTree.parse(f).getroot()
+        self.woeid = root.find("results/Result/woeid").text
+
+    def test_fetch_xml(self):
+        url = yweather.WOEID_LOOKUP_URL.format(quote("Raleigh, NC"))
+        root = self.client._fetch_xml(url)
+        self.assertEqual(root.find("results/Result/woeid").text, self.woeid)
 
 class testFetchWoeid(unittest.TestCase):
 
