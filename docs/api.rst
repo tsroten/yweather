@@ -125,6 +125,10 @@ API
             NNW
             >>> print result["atmosphere"]["pressure"], result["units"]["atmosphere"]["pressure"]
             29.95 psi
+            >>> print len(result["forecast"])
+            2
+            >>> print result["forecast"][0]["text"]
+            Partly Cloudy
 
         :param id: the location's :term:`WOEID` or :term:`LID`.
         :type id: :mod:`string <python3:string>`
