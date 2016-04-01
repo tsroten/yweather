@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='yweather',
-    version='0.1',
+    version='0.1.1',
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/yweather',
