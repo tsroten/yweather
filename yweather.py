@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#Copyright (c) 2012-2013 Thomas Roten
+# Copyright (c) 2012-2013 Thomas Roten
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ Constants:
     LID_LOOKUP_URL: the URL used to fetch a location's corresponding LID.
     LID_WEATHER_URL: the URL used to fetch a LID's weather.
     WEATHER_NS: the XML namespace used in the weather RSS feed.
-    GEO_NS: the XML namespace used for the lat/long coordinates in the RSS feed.
+    GEO_NS: the XML namespace used for the coordinates in the RSS feed.
     CONDITION_IMAGE_URL: the URL of an image depicting the current conditions.
     UNITS: a dict that maps data names to units.
 
@@ -115,10 +115,11 @@ class Client(object):
             not be found.
 
         Raises:
-            urllib.error.URLError: urllib.request could not open the URL (Python 3).
+            urllib.error.URLError: urllib.request could not open the URL
+                (Python 3).
             urllib2.URLError: urllib2 could not open the URL (Python 2).
-            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to parse
-                the XML document.
+            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to
+                parse the XML document.
 
         """
         rss = self._fetch_xml(LID_LOOKUP_URL.format(woeid, "f"))
@@ -143,8 +144,8 @@ class Client(object):
     def fetch_weather(self, id, metric=False):
         """Fetch a location's weather.
 
-        *id* can be either a WOEID or LID. The weather data returned for each is
-        identical except that the WOEID returns a 2-day forecast and the LID
+        *id* can be either a WOEID or LID. The weather data returned for each
+        is identical except that the WOEID returns a 2-day forecast and the LID
         returns a 5-day forecast. The LID uses an undocumented API, so use it
         at your own risk.
 
@@ -157,10 +158,11 @@ class Client(object):
                 the weather data couldn't be fetched.
 
         Raises:
-            urllib.error.URLError: urllib.request could not open the URL (Python 3).
+            urllib.error.URLError: urllib.request could not open the URL
+                (Python 3).
             urllib2.URLError: urllib2 could not open the URL (Python 2).
-            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to parse
-                the XML document.
+            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to
+                parse the XML document.
 
         """
 
@@ -226,7 +228,7 @@ class Client(object):
 
         try:
             image_url = CONDITION_IMAGE_URL.format(weather["condition"]["code"])
-            weather["condition"]["image"] =  image_url
+            weather["condition"]["image"] = image_url
         except (AttributeError, TypeError):
             pass
 
@@ -279,10 +281,11 @@ class Client(object):
                 the WOEID could not be found.
 
         Raises:
-            urllib.error.URLError: urllib.request could not open the URL (Python 3).
+            urllib.error.URLError: urllib.request could not open the URL
+                (Python 3).
             urllib2.URLError: urllib2 could not open the URL (Python 2).
-            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to parse
-                the XML document.
+            xml.etree.ElementTree.ParseError: xml.etree.ElementTree failed to
+                parse the XML document.
 
         """
         rss = self._fetch_xml(

@@ -8,6 +8,7 @@ import xml.etree.ElementTree
 
 import yweather
 
+
 class testFetchXml(unittest.TestCase):
 
     def setUp(self):
@@ -22,6 +23,7 @@ class testFetchXml(unittest.TestCase):
         url = yweather.WOEID_LOOKUP_URL.format(quote("Raleigh, NC"))
         root = self.client._fetch_xml(url)
         self.assertEqual(root.find("results/Result/woeid").text, self.woeid)
+
 
 class testFetchWoeid(unittest.TestCase):
 
@@ -38,6 +40,7 @@ class testFetchWoeid(unittest.TestCase):
 
     def test_fetch_woeid(self):
         self.assertEqual(self.client.fetch_woeid("Raleigh, NC"), "2478307")
+
 
 class testFetchWeather(unittest.TestCase):
 
@@ -59,6 +62,7 @@ class testFetchWeather(unittest.TestCase):
         self.assertEqual(weather["forecast"][0]["high"], "52")
         self.assertEqual(weather["geo"]["lat"], "35.79")
 
+
 class testFetchWeatherLidMode(unittest.TestCase):
 
     def return_root(self, extra=None):
@@ -76,7 +80,8 @@ class testFetchWeatherLidMode(unittest.TestCase):
         weather = self.client.fetch_weather("USNC0558")
         self.assertEqual(weather["ttl"], "60")
         self.assertEqual(len(weather["forecast"]), 5)
-        
+
+
 class testFetchLid(unittest.TestCase):
 
     def return_root(self, extra=None):
