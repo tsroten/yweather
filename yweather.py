@@ -51,7 +51,7 @@ import xml.etree.ElementTree
 WOEID_LOOKUP_URL = ("http://locdrop.query.yahoo.com/v1/public/yql?"
                     "q=select%20woeid%20from%20locdrop.placefinder%20"
                     "where%20text='{0}'")
-WEATHER_URL = "http://weather.yahooapis.com/forecastrss?w={0}&u={1}"
+WEATHER_URL = "http://xml.weather.yahoo.com/forecastrss?w={0}&u={1}"
 LID_LOOKUP_URL = WEATHER_URL
 LID_WEATHER_URL = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml"
 WEATHER_NS = "http://xml.weather.yahoo.com/ns/rss/1.0"
@@ -109,7 +109,7 @@ class Client(object):
 
         Args:
             woeid: (string) the location's WOEID.
-        
+
         Returns:
             a string containing the requested LID or None if the LID could
             not be found.
