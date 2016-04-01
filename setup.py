@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 with open("README.rst") as f:
     long_description = f.read()
@@ -26,4 +26,5 @@ setup(
         ],
     keywords = ["weather", "yahoo", "interface", "wrapper", "api"],
     py_modules = ["yweather"],
+    test_suite = 'test',
 )
