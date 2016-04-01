@@ -9,7 +9,7 @@ yweather is a Python module that provides an interface to the `Yahoo! Weather RS
 International Support
 ---------------------
 
-::
+.. code:: python
 
     >>> client.fetch_woeid("Paris, France")
     '615702'
@@ -18,7 +18,9 @@ International Support
 
 Location and weather data is not limited to a single country. Fetch data for any location that is available on Yahoo! Weather.
 
-Different countries use different measurement systems (unfortunately). Fetch data according to United States customary units or the metric system.::
+Different countries use different measurement systems (unfortunately). Fetch data according to United States customary units or the metric system.
+
+.. code:: python
 
     >>> paris_weather = client.fetch_weather("615702", metric=True)
     >>> seattle_weather = client.fetch_weather("2490383", metric=False)
@@ -26,7 +28,7 @@ Different countries use different measurement systems (unfortunately). Fetch dat
 Data is Returned as a Dict
 --------------------------
 
-::
+.. code:: python
 
     >>> norfolk_weather = client.fetch_weather("2460389")
     >>> norfolk_weather["astronomy"]["sunrise"]
@@ -44,7 +46,7 @@ Unlike many weather APIs, Yahoo! Weather's RSS feed doesn't require sign ups, AP
 No Manual ID Lookups
 --------------------
 
-::
+.. code:: python
 
     >>> client.fetch_woeid("Raleigh, North Carolina")
     '2478307'
@@ -56,7 +58,7 @@ yweather doesn't assume you know location identifiers off the top of your head. 
 5-day Forecast Support
 ----------------------
 
-::
+.. code:: python
 
     >>> london_weather = client.fetch_weather("UKXX0085")
     >>> len(london_weather["forecast"])
