@@ -1,7 +1,9 @@
 yweather
 ========
 
-**Yahoo Weather has discontinued the RSS feed interface this library is based on. There is a new `YQL Query interface <https://developer.yahoo.com/weather/>`_. I don't plan on updating this library to use the new endpoint.**
+**Yahoo Weather has discontinued the RSS feed interface this library is based on. There is a new YQL Query interface: https://developer.yahoo.com/weather/**
+
+**I don't plan on updating this library to use the new endpoint.**
 
 About
 -----
